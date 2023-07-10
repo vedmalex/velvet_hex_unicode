@@ -3,11 +3,7 @@
 #include "oneshot.h"
 #include "swapper.h"
 
-#ifdef UNICODE
-#    include "unicode.h"
-#elif
-#    include "keymap_russian.h"
-#endif
+#include "unicode.h"
 
 #define RESET QK_BOOT
 
@@ -36,9 +32,7 @@
 
 enum layers {
     _EN,
-#ifdef UNICODE
     _RU,
-#endif
     _SYM,
     _NAV,
     _NUM,
@@ -66,14 +60,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    S(KC_7), KC_LBRC,  KC_RBRC,
                 DF_RU,    SW_LANG, KC_SPC,  LA_NAV,         LA_SYM , KC_LSFT, LA_ALT, _______
     ),
-#ifdef UNICODE
+
     [_RU] = LAYOUT_all(
         RU_SHTI,  RU_TSE,   RU_U,       RU_KA,      RU_IE,              RU_EN,      RU_GHE,     RU_SHA,     RU_ZE,      RU_HA,
         RU_EF,    RU_YERU,  RU_VE,      RU_A,       RU_PE,              RU_ER,      RU_O,       RU_EL,      RU_DE,      RU_ZHE,
         RU_YA,    RU_CHE,   RU_ES,      RU_EM,      RU_I,               RU_TE,      RU_SOFT,    RU_BE,      RU_YU,      RU_E,
                   DF_EN,    SW_LANG,    KC_SPC,     LA_NAV,             LA_SYM ,    KC_LSFT,    LA_ALT, _______
     ),
-#elif
 
     [_SYM] = LAYOUT_all(
         KC_EXLM,        KC_AT,          KC_HASH,        KC_DOLLAR,      KC_PERCENT,     KC_CIRCUMFLEX,  KC_QUESTION,    KC_ASTERISK,    KC_LEFT_PAREN,  KC_RIGHT_PAREN,
@@ -97,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ALT] = LAYOUT_all(
-        PSI,    OMEG,   EURO,  REGD,   RU_YO,     YEN,    LAMB,   RU_SHCH,  LT,    GT,
+        PSI,    OMEG,   EURO,  REGD,   RU_YO,     YEN,    LAMB,   RU_SHCH,  _LT,    _GT,
         APLH,   SECT,   DEG,   PND,    UPSL,   RUBLE,  OSTR,  JS_ARROW, LDAQ,  RDAQ,
         MU,     MUL,    COPY,  SQRT,   BETA,   NU,     RU_HARD,   AMPE,  KC_LBRC, KC_RBRC,
         _______,  _______,  NBSP,  _______,   _______,   _______,   _______,   _______
@@ -139,7 +132,7 @@ oneshot_state os_alt_state  = os_up_unqueued;
 oneshot_state os_cmd_state  = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_swapper(&sw_win_active, KC_LALT, KC_TAB, SW_WIN, OS_SHFT, keycode, record);
+    update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, OS_SHFT, keycode, record);
     update_swapper(&sw_tab_active, KC_LCTL, KC_TAB, SW_TAB, OS_SHFT, keycode, record);
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
@@ -149,7 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SW_LANG: {
             if (record->event.pressed) {
-#    if UNICODE
                 if (get_highest_layer(layer_state) == _EN) {
                     layer_clear();
                     layer_on(_RU);
@@ -157,11 +149,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_clear();
                     layer_on(_EN);
                 }
-#    elif
-                register_code(KC_LCTL);
-                SEND_STRING_DELAY(" ", 100);
-                unregister_code(KC_LCTL);
-#    endif
+                // register_code(KC_LCTL);
+                // SEND_STRING_DELAY(" ", 100);
+                // unregister_code(KC_LCTL);
             }
             return false;
         }

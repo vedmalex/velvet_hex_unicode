@@ -1,5 +1,5 @@
 VIAL_ENABLE = yes
-UNICODEMAP_ENABLE = no
+UNICODEMAP_ENABLE = yes
 
 
 SRC += ./oneshot.c
