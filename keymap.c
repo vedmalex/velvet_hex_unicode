@@ -2,8 +2,9 @@
 
 #include "oneshot.h"
 #include "swapper.h"
+#include "keymap_russian.h"
 
-#include "unicode.h"
+// #include "unicode_sym.h"
 
 #define RESET QK_BOOT
 
@@ -23,7 +24,7 @@
 #define BSL RALT(KC_BSLS)
 
 #define SPACE_L C(G(KC_LEFT))
-#define SPACE_R C(G(KC_RGHT))
+#define SPC_R C(G(KC_RGHT))
 
 #define TAB_L C(S(KC_TAB))
 #define TAB_R C(KC_TAB)
@@ -46,54 +47,62 @@ enum keycodes {
     OS_ALT,
     OS_CMD,
 
-    SW_WIN,   // Switch to next window         (alt-tab)
-    SW_TAB,   // Switch to next browser tab    (ctrl-tab)
-    SW_LANG,  // Switch layout in macos (ctrl-space)
-    JS_ARROW, // =>
+    SW_WIN,       // Switch to next window         (alt-tab)
+    SW_TAB,       // Switch to next browser tab    (ctrl-tab)
+    SW_LANG,      // Switch layout in macos (ctrl-space)
+    SW_UNDO_REDO, // ctrl+z
+    SW_FORWARD,   // ctrl + -
+    SAVE,         // CMD+S
+    CUT,          // CMD+X
+    COPY,         // CMD+C
+    PASTE,        // CMD+V
+    SELECT_ALL,   // CMD+A
+    JS_ARROW,     // =>
 };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_EN] = LAYOUT_all(
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
-        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    S(KC_7), KC_LBRC,  KC_RBRC,
-                DF_RU,    SW_LANG, KC_SPC,  LA_NAV,         LA_SYM , KC_LSFT, LA_ALT, _______
+        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M, S(KC_7), KC_LBRC, KC_RBRC,
+                DF_RU, SW_LANG,  KC_SPC,  LA_NAV,         LA_SYM, KC_LSFT,  LA_ALT, _______
     ),
 
     [_RU] = LAYOUT_all(
-        RU_SHTI,  RU_TSE,   RU_U,       RU_KA,      RU_IE,              RU_EN,      RU_GHE,     RU_SHA,     RU_ZE,      RU_HA,
-        RU_EF,    RU_YERU,  RU_VE,      RU_A,       RU_PE,              RU_ER,      RU_O,       RU_EL,      RU_DE,      RU_ZHE,
-        RU_YA,    RU_CHE,   RU_ES,      RU_EM,      RU_I,               RU_TE,      RU_SOFT,    RU_BE,      RU_YU,      RU_E,
-                  DF_EN,    SW_LANG,    KC_SPC,     LA_NAV,             LA_SYM ,    KC_LSFT,    LA_ALT, _______
+     RU_SHTI,  RU_TSE,    RU_U,   RU_KA,   RU_IE,          RU_EN,  RU_GHE,  RU_SHA,   RU_ZE,   RU_HA,
+       RU_EF, RU_YERU,   RU_VE,    RU_A,   RU_PE,          RU_ER,    RU_O,   RU_EL,   RU_DE,  RU_ZHE,
+       RU_YA,  RU_CHE,   RU_ES,   RU_EM,    RU_I,          RU_TE, RU_SOFT,   RU_BE,   RU_YU,    RU_E,
+                DF_EN, SW_LANG,  KC_SPC,  LA_NAV,         LA_SYM, KC_LSFT,  LA_ALT,  _______
     ),
 
     [_SYM] = LAYOUT_all(
-        KC_EXLM,        KC_AT,          KC_HASH,        KC_DOLLAR,      KC_PERCENT,     KC_CIRCUMFLEX,  KC_QUESTION,    KC_ASTERISK,    KC_LEFT_PAREN,  KC_RIGHT_PAREN,
-        KC_TILDE,       KC_GRAVE,       KC_QUOTE,       S(KC_QUOTE),    KC_MINUS,       KC_PLUS,        OS_SHFT,        OS_CTRL,        OS_ALT,         OS_CMD,
-        KC_BACKSLASH,   BRKP,        KC_SEMICOLON,   KC_COMMA,       S(KC_MINUS),    KC_KP_EQUAL,    KC_DOT,         KC_SEMICOLON,   KC_PIPE,        KC_SLASH,
-                        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______
+      //  _______,      _______,      _______,     _______,     _______,          _______,      _______,          _______,       _______,         _______,
+          KC_EXLM,        KC_AT,       KC_HASH,    KC_DOLLAR, KC_PERCENT,    KC_CIRCUMFLEX,  KC_QUESTION,     KC_ASTERISK, KC_LEFT_PAREN,  KC_RIGHT_PAREN,
+          KC_TILDE,    KC_GRAVE,     KC_QUOTE, S(KC_QUOTE),     KC_MINUS,          KC_PLUS,      OS_SHFT,         OS_CTRL,        OS_ALT,          OS_CMD,
+      KC_BACKSLASH,     KC_PIPE, KC_SEMICOLON,    KC_COMMA,  S(KC_MINUS),      KC_KP_EQUAL,       KC_DOT, S(KC_SEMICOLON),       KC_PIPE,        KC_SLASH,
+                        _______,      _______,     _______,      _______,          _______,      _______,         _______,       _______
     ),
 
     [_NAV] = LAYOUT_all(
-        SW_TAB,  SW_WIN,  TAB_L,   TAB_R,   KC_GRV,         KC_ESC,  KC_HOME, KC_END,  KC_BSPC, KC_DEL,
-        OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT, KC_ENT,         KC_ENT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-        SPACE_L, SPACE_R, _______, KC_PSCR, KC_TAB,         KC_TAB,  KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX,
-                 _______,  _______, _______, _______,        _______, _______, _______, _______
+      SW_TAB,  SW_WIN,    TAB_L,    TAB_R,   KC_GRV,         KC_ESC,  KC_HOME,  KC_END,   KC_BSPC,   KC_DEL,
+      OS_CMD,  OS_ALT,  OS_CTRL,  OS_SHFT,   KC_ENT,         KC_ENT,  KC_LEFT,  KC_DOWN,    KC_UP,  KC_RGHT,
+     SPACE_L,   SPC_R,  _______,  KC_PSCR,   KC_TAB,         KC_TAB,  KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
+              _______,  _______,  _______,  _______,        _______,  _______,  _______,  _______
     ),
 
     [_NUM] = LAYOUT_all(
-        KC_P1,   KC_P2,   KC_P3,   KC_P4,   KC_P5,          KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,
-        OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT, KC_F11,         KC_F12,  OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
-                _______, _______, _______, _______,        _______, _______, _______, _______
+     KC_P1,   KC_P2,    KC_P3,   KC_P4,   KC_P5,          KC_P6,    KC_P7,    KC_P8,    KC_P9,    KC_P0,
+    OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT,  KC_F11,         KC_F12,  OS_SHFT,  OS_CTRL,   OS_ALT,   OS_CMD,
+     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,          KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,
+            _______, _______, _______, _______,         _______,  _______,  _______,  _______
     ),
 
     [_ALT] = LAYOUT_all(
-        PSI,    OMEG,   EURO,  REGD,   RU_YO,     YEN,    LAMB,   RU_SHCH,  _LT,    _GT,
-        APLH,   SECT,   DEG,   PND,    UPSL,   RUBLE,  OSTR,  JS_ARROW, LDAQ,  RDAQ,
-        MU,     MUL,    COPY,  SQRT,   BETA,   NU,     RU_HARD,   AMPE,  KC_LBRC, KC_RBRC,
-        _______,  _______,  NBSP,  _______,   _______,   _______,   _______,   _______
+    _______,_______,_______,_______,  RU_YO,       _______,_______,RU_SHCH,_______,_______,
+    _______,_______,_______,_______,_______,       _______,_______,_______,_______,_______,
+    _______,_______,_______,_______,_______,       _______,RU_HARD,_______,_______,_______,
+            _______,_______,_______,_______,       _______,_______,_______,_______
     ),
 };
 // clang-format on
@@ -132,8 +141,9 @@ oneshot_state os_alt_state  = os_up_unqueued;
 oneshot_state os_cmd_state  = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_swapper(&sw_win_active, KC_LGUI, KC_TAB, SW_WIN, OS_SHFT, keycode, record);
+    update_swapper(&sw_win_active, KC_LALT, KC_TAB, SW_WIN, OS_SHFT, keycode, record);
     update_swapper(&sw_tab_active, KC_LCTL, KC_TAB, SW_TAB, OS_SHFT, keycode, record);
+    // update_swapper(&sw_tab_active, KC_LCTL, KC_TAB, SW_TAB, OS_SHFT, keycode, record);
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
     update_oneshot(&os_ctrl_state, KC_LCTL, OS_CTRL, keycode, record);
     update_oneshot(&os_alt_state, KC_LALT, OS_ALT, keycode, record);
@@ -149,22 +159,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_clear();
                     layer_on(_EN);
                 }
-                // register_code(KC_LCTL);
-                // SEND_STRING_DELAY(" ", 100);
-                // unregister_code(KC_LCTL);
+                register_code(KC_LCTL);
+                SEND_STRING_DELAY(" ", 100);
+                unregister_code(KC_LCTL);
             }
             return false;
         }
-        case JS_ARROW: {
-            if (record->event.pressed) {
-                SEND_STRING("=>");
-            }
-            return false;
-        }
+            // case JS_ARROW: {
+            //     if (record->event.pressed) {
+            //         SEND_STRING("=>");
+            //     }
+            //     return false;
+            // }
     }
     return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _SYM, _NAV, _NUM);
+}
+
+void keyboard_pre_init_user(void) {
+    set_single_persistent_default_layer(_EN);
 }
