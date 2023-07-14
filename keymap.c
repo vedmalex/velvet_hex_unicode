@@ -34,7 +34,7 @@
 #define KC_CLN S(KC_SCLN)
 
 enum layers {
-    _EN,
+    _QWERTY,
     _RU,
     _SYM,
     _NAV,
@@ -66,12 +66,16 @@ enum keycodes {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_EN] = LAYOUT_all(
+    [_QWERTY] = LAYOUT_all(
       KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,
       KC_A,    KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,
       KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,          KC_N,   KC_M,KC_AMPR,KC_LBRC,KC_RBRC,
            DF_MOUSE,SW_LANG, KC_SPC, LA_NAV,        LA_SYM,KC_LSFT, LA_ALT,SW_LNFX
     ),
+
+
+
+
 
     [_RU] = LAYOUT_all(
     _______,_______,_______,_______,_______,       _______,_______,_______,  RU_ZE,  RU_HA,
@@ -89,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_all(
      SW_TAB, SW_WIN,  TAB_L,  TAB_R, KC_GRV,        KC_ESC,KC_HOME, KC_END,KC_BSPC, KC_DEL,
-     OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,KC_ENT,
+     OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_ENT,KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,
     SPACE_L,  SPC_R,_______,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,       _______,_______,_______,_______
     ),
@@ -163,12 +167,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SW_LANG: {
             if (record->event.pressed) {
-                if (get_highest_layer(layer_state) == _EN) {
+                if (get_highest_layer(layer_state) == _QWERTY) {
                     layer_clear();
                     layer_on(_RU);
                 } else {
                     layer_clear();
-                    layer_on(_EN);
+                    layer_on(_QWERTY);
                 }
                 register_code(KC_LCTL);
                 SEND_STRING_DELAY(" ", 100);
@@ -178,12 +182,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         case SW_LNFX: {
             if (record->event.pressed) {
-                if (get_highest_layer(layer_state) == _EN) {
+                if (get_highest_layer(layer_state) == _QWERTY) {
                     layer_clear();
                     layer_on(_RU);
                 } else {
                     layer_clear();
-                    layer_on(_EN);
+                    layer_on(_QWERTY);
                 }
             }
             return false;
@@ -205,5 +209,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void keyboard_pre_init_user(void) {
-    set_single_persistent_default_layer(_EN);
+    set_single_persistent_default_layer(_QWERTY);
 }
