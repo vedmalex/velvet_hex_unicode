@@ -1,6 +1,5 @@
 VIAL_ENABLE = yes
-UNICODEMAP_ENABLE = no
-
+REPEAT_KEY_ENABLE = yes
 
 SRC += ./oneshot.c
 SRC += ./swapper.c
