@@ -39,19 +39,17 @@ enum keycodes {
     OS_ALT,
     OS_CMD,
 
-    ALT_TAB,         // Switch to next window         (alt-tab)
-    GUI_TAB,         // Switch to next browser tab    (gui-tab)
-    CTL_TAB,         // Switch to next browser tab    (ctrl-tab)
-    SW_LANG,         // Switch layout in macos (ctrl-space)
-    SW_UNDO_REDO,    // ctrl+z
-    SW_FORWARD,      // ctrl + -
-    SAVE,            // CMD+S
-    CUT,             // CMD+X
-    COPY,            // CMD+C
-    PASTE,           // CMD+V
-    SELECT_ALL,      // CMD+A
-    SELECT_ALL_COPY, // CMD+A + C
-    CMD_D            // cmd + D
+    ALT_TAB,      // Switch to next window         (alt-tab)
+    GUI_TAB,      // Switch to next browser tab    (gui-tab)
+    CTL_TAB,      // Switch to next browser tab    (ctrl-tab)
+    SW_LANG,      // Switch layout in macos (ctrl-space)
+    SW_UNDO_REDO, // ctrl+z
+    SW_FORWARD,   // ctrl + -
+    SAVE,         // CMD+S
+    CUT,          // CMD+X
+    COPY,         // CMD+C
+    PASTE,        // CMD+V
+    SELECT_ALL,   // CMD+A
 };
 
 // clang-format off

@@ -80,11 +80,6 @@
             "name": "Cmd A",
             "title": "lang switcher",
             "shortName": "SELECT_ALL"
-        },
-        {
-            "name": "Cmd AC",
-            "title": "lang switcher",
-            "shortName": "SELECT_ALL_COPY"
         }
     ],
     "layouts": {
