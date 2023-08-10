@@ -68,7 +68,7 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
     GUI_TAB,ALT_TAB,CTL_TAB, S_LANG, KC_ESC,        KC_ESC,KC_HOME, KC_END,KC_BSPC, KC_DEL,
      OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_ENT,KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,
-    SPACE_L,  SPC_R,DF_MOUS,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,S_UN_RE,S_FWD,
+    SPACE_L,  SPC_R,DF_MOUS,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,       _______,_______,_______,_______
     )
     ,
@@ -87,7 +87,7 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_EDIT] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    SEL_ALL,   SAVE,  CMD_D,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    SEL_ALL,   SAVE,  CMD_D,XXXXXXX,  S_FWD,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     S_UN_RE,    CUT,   COPY,  PASTE,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,       _______,_______,_______,_______
     ),
