@@ -67,7 +67,7 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ,
     [_NAV] = LAYOUT(
     GUI_TAB,ALT_TAB,CTL_TAB, S_LANG, KC_ESC,        KC_ESC,KC_HOME, KC_END,KC_BSPC, KC_DEL,
-     OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_ENT,KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,
+     OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,KC_ENT,
     SPACE_L,  SPC_R,DF_MOUS,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,       _______,_______,_______,_______
     )
@@ -81,7 +81,7 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ,
     [_MOUSE] = LAYOUT(
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  RESET,       KC_BTN1,KC_BTN2,KC_BTN3,KC_BTN4,KC_BTN5,
-    KC_WH_L,KC_WH_D,KC_WH_U,KC_WH_R,XXXXXXX,       XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,
+    XXXXXXX,KC_WH_L,KC_WH_D,KC_WH_U,KC_WH_R,       KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,XXXXXXX,
     XXXXXXX,XXXXXXX,DF_MOUS,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
             _______,_______,_______,_______,       _______,_______,_______,_______
     ),
