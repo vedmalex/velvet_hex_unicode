@@ -8,7 +8,9 @@
 
 #define LA_SYM MO(_SYM)
 #define LA_NAV MO(_NAV)
+#define LA_NUM MO(_NUM)
 #define LA_EDIT MO(_EDIT)
+#define LA_MOUSE MO(_MOUSE)
 
 #define DF_RU DF(_RU)
 #define DF_EN DF(_EN)
@@ -24,6 +26,14 @@
 
 #define SPACE_L C(G(KC_LEFT))
 #define SPC_R C(G(KC_RGHT))
+
+#define NAV_SPC TD(0) // nav layer + space
+#define NUM_TAB TD(1) // num layer + tab
+#define EDT_ESC TD(2) // tab + edit layer
+#define SYM_SPC TD(3) // sym layer + space
+#define TAB_SHF TD(4) // tab + shift
+#define ESC_ALT TD(5) // esc + alt
+#define CAP_MSE TD(6) // caps lock + mouse
 
 enum layers { _QWERTY, _SYM, _NAV, _NUM, _MOUSE, _EDIT };
 
@@ -55,7 +65,8 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,          KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,
       KC_A,    KC_S,   KC_D,   KC_F,   KC_G,          KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,
       KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,          KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,
-             KC_ESC,LA_EDIT, KC_SPC, LA_NAV,        LA_SYM,KC_LSFT,KC_LALT,KC_CAPS
+            CAP_MSE,EDT_ESC,NUM_TAB,NAV_SPC,       SYM_SPC,TAB_SHF,ESC_ALT,CAP_MSE
+            //KC_ESC,LA_EDIT, KC_SPC, LA_NAV,        LA_SYM,KC_LSFT,KC_LALT,KC_CAPS
     )
     ,
     [_SYM] = LAYOUT(
@@ -185,12 +196,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // включает слой _NUM когда оба слоя включены, иначе отключает _NUM
-    return update_tri_layer_state(state, _SYM, _NAV, _NUM);
-}
-
 void keyboard_pre_init_user(void) {
     set_single_persistent_default_layer(_QWERTY);
     layer_on(_QWERTY);
+}
+
+void keyboard_post_init_user(void) {
+    vial_tap_dance_entry_t TD_NAV_SPACE      = {KC_SPC, LA_NAV, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_NUM_TAB        = {KC_TAB, LA_NUM, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_EDIT_ESC       = {KC_ESC, LA_EDIT, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_SYM_SPACE      = {KC_SPC, LA_SYM, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_TAB_L_SHIFT    = {KC_TAB, KC_LSFT, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_ESC_ALT        = {KC_ESC, KC_LALT, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_CAPSLOCK_MOUSE = {KC_CAPS, LA_MOUSE, KC_NO, KC_NO, TAPPING_TERM};
+
+    dynamic_keymap_set_tap_dance(0, &TD_NAV_SPACE);      // the first value corresponds to the TD(0) slot
+    dynamic_keymap_set_tap_dance(1, &TD_NUM_TAB);        // the first value corresponds to the TD(1) slot
+    dynamic_keymap_set_tap_dance(2, &TD_EDIT_ESC);       // the first value corresponds to the TD(2) slot
+    dynamic_keymap_set_tap_dance(3, &TD_SYM_SPACE);      // the first value corresponds to the TD(3) slot
+    dynamic_keymap_set_tap_dance(4, &TD_TAB_L_SHIFT);    // the first value corresponds to the TD(4) slot
+    dynamic_keymap_set_tap_dance(5, &TD_ESC_ALT);        // the first value corresponds to the TD(5) slot
+    dynamic_keymap_set_tap_dance(6, &TD_CAPSLOCK_MOUSE); // the first value corresponds to the TD(6) slot
 }
