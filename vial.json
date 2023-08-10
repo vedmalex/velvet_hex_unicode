@@ -7,79 +7,79 @@
     },
     "customKeycodes": [
         {
-            "name": "one shot shift",
+            "name": "OS_SHFT",
             "title": "Oneshot key Shift",
-            "shortName": "OS_SHFT"
+            "shortName": "Shift"
         },
         {
-            "name": "one shot control",
+            "name": "OS_CTRL",
             "title": "Oneshot key Ctrl",
-            "shortName": "OS_CTRL"
+            "shortName": "Ctrl"
         },
         {
-            "name": "one shot Alt",
+            "name": "OS_ALT",
             "title": "Oneshot key Alt",
-            "shortName": "OS_ALT"
+            "shortName": "Alt"
         },
         {
-            "name": "Cmd",
+            "name": "OS_CMD",
             "title": "Oneshot key Alt",
-            "shortName": "OS_CMD"
+            "shortName": "Cmd"
         },
         {
-            "name": "ATab",
+            "name": "ALT_TAB",
             "title": "window switcher",
-            "shortName": "ALT_TAB"
+            "shortName": "Alt\n + Tab"
         },
         {
-            "name": "gTab",
+            "name": "GUI_TAB",
             "title": "tab switcher",
-            "shortName": "GUI_TAB"
+            "shortName": "CMD\n + tab"
         },
         {
-            "name": "cTab",
+            "name": "CTL_TAB",
             "title": "tab switcher",
-            "shortName": "CTL_TAB"
+            "shortName": "ctrl\n + tab"
         },
         {
-            "name": "cSpc",
+            "name": "S_LANG",
             "title": "lang switcher",
-            "shortName": "SW_LANG"
+            "shortName": "ctrl\n + space"
         },
         {
-            "name": "Un/Re",
+            "name": "S_UN_RE",
             "title": "undo redo",
-            "shortName": "SW_UNDO_REDO"
+            "shortName": "CMD \n + z"
         },
         {
-            "name": "Fw/Bw",
+            "name": "S_FWD",
             "title": "lang switcher",
-            "shortName": "SW_FORWARD"
+            "shortName": "ctrl\n + -"
         },
         {
-            "name": "Save",
+            "name": "SAVE",
             "title": "save",
-            "shortName": "SAVE"
+            "shortName": "CMD\n + S"
         },
         {
-            "name": "Cut",
+            "name": "CUT",
             "title": "lang switcher",
-            "shortName": "CUT"
+            "shortName": "CMD\n + x"
         },
         {
-            "name": "Cpy",
+            "name": "COPY",
             "title": "lang switcher",
-            "shortName": "COPY"
+            "shortName": "CMD\n + c"
         },
         {
-            "name": "Pst",
+            "name": "PASTE",
             "title": "lang switcher",
-            "shortName": "PASTE"
+            "shortName": "CMD\n + v"
         },
         {
-            "name": "Cmd A",
+            "name": "CMD_D",
             "title": "lang switcher",
-            "shortName": "SELECT_ALL"
+            "shortName": "CMDb\n + d"
         }
     ],
     "layouts": {

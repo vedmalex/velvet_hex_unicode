@@ -25,11 +25,6 @@
 #define SPACE_L C(G(KC_LEFT))
 #define SPC_R C(G(KC_RGHT))
 
-#define LSW C(KC_SPC)
-
-#define KC_USCR S(KC_MINS)
-#define KC_CLN S(KC_SCLN)
-
 enum layers { _QWERTY, _SYM, _NAV, _NUM, _MOUSE, _EDIT };
 
 enum keycodes {
@@ -39,17 +34,18 @@ enum keycodes {
     OS_ALT,
     OS_CMD,
 
-    ALT_TAB,      // Switch to next window         (alt-tab)
-    GUI_TAB,      // Switch to next browser tab    (gui-tab)
-    CTL_TAB,      // Switch to next browser tab    (ctrl-tab)
-    SW_LANG,      // Switch layout in macos (ctrl-space)
-    SW_UNDO_REDO, // ctrl+z
-    SW_FORWARD,   // ctrl + -
-    SAVE,         // CMD+S
-    CUT,          // CMD+X
-    COPY,         // CMD+C
-    PASTE,        // CMD+V
-    SELECT_ALL,   // CMD+A
+    ALT_TAB, // Switch to next window         (alt-tab)
+    GUI_TAB, // Switch to next browser tab    (gui-tab)
+    CTL_TAB, // Switch to next browser tab    (ctrl-tab)
+    S_LANG,  // Switch layout in macos (ctrl-space)
+    S_UN_RE, // ctrl+z
+    S_FWD,   // ctrl + -
+    SAVE,    // CMD+S
+    CUT,     // CMD+X
+    COPY,    // CMD+C
+    PASTE,   // CMD+V
+    SEL_ALL, // CMD+A
+    CMD_D,
 };
 
 // clang-format off
@@ -70,9 +66,9 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
     ,
     [_NAV] = LAYOUT(
-    GUI_TAB,ALT_TAB,CTL_TAB,SW_LANG, KC_GRV,        KC_ESC,KC_HOME, KC_END,KC_BSPC, KC_DEL,
+    GUI_TAB,ALT_TAB,CTL_TAB, S_LANG, KC_ESC,        KC_ESC,KC_HOME, KC_END,KC_BSPC, KC_DEL,
      OS_CMD, OS_ALT,OS_CTRL,OS_SHFT, KC_ENT,        KC_ENT,KC_LEFT,KC_DOWN,  KC_UP,KC_RGHT,
-    SPACE_L,  SPC_R,DF_MOUS,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,SW_UNDO_REDO,SW_FORWARD,
+    SPACE_L,  SPC_R,DF_MOUS,KC_PSCR, KC_TAB,        KC_TAB,KC_PGUP,KC_PGDN,S_UN_RE,S_FWD,
             _______,_______,_______,_______,       _______,_______,_______,_______
     )
     ,
@@ -90,10 +86,10 @@ PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______,_______,_______,_______,       _______,_______,_______,_______
     ),
     [_EDIT] = LAYOUT(
-         XXXXXXX,    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-         SELECT_ALL,    SAVE, CMD_D,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-         SW_UNDO_REDO,    CUT,COPY,PASTE,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-                     _______,_______,_______,_______,       _______,_______,_______,_______
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    SEL_ALL,   SAVE,  CMD_D,XXXXXXX,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    S_UN_RE,    CUT,   COPY,  PASTE,XXXXXXX,       XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+            _______,_______,_______,_______,       _______,_______,_______,_______
     ),
 };
 // clang-format on
@@ -144,9 +140,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_swapper(&alt_tab_active, KC_LALT, KC_TAB, ALT_TAB, OS_SHFT, keycode, record);
     update_swapper(&gui_tab_active, KC_LGUI, KC_TAB, GUI_TAB, OS_SHFT, keycode, record);
     update_swapper(&ctrl_tab_active, KC_LCTL, KC_TAB, CTL_TAB, OS_SHFT, keycode, record);
-    update_swapper(&ctrl_spc_active, KC_LCTL, KC_SPC, SW_LANG, OS_SHFT, keycode, record);
-    update_swapper(&undo_red_active, KC_LCMD, KC_Z, SW_UNDO_REDO, OS_SHFT, keycode, record);
-    update_swapper(&ctrl_minus_active, KC_LCTL, KC_MINS, SW_FORWARD, OS_SHFT, keycode, record);
+    update_swapper(&ctrl_spc_active, KC_LCTL, KC_SPC, S_LANG, OS_SHFT, keycode, record);
+    update_swapper(&undo_red_active, KC_LCMD, KC_Z, S_UN_RE, OS_SHFT, keycode, record);
+    update_swapper(&ctrl_minus_active, KC_LCTL, KC_MINS, S_FWD, OS_SHFT, keycode, record);
     update_swapper(&gui_d_active, KC_LCMD, KC_D, CMD_D, OS_SHFT, keycode, record);
     // oneshots
     update_oneshot(&os_shft_state, KC_LSFT, OS_SHFT, keycode, record);
@@ -179,7 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         }
-        case SELECT_ALL: {
+        case SEL_ALL: {
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI("a"));
             }
