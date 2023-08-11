@@ -202,11 +202,11 @@ void keyboard_pre_init_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-    vial_tap_dance_entry_t TD_NAV_SPACE      = {KC_SPC, LA_NAV, KC_NO, KC_NO, TAPPING_TERM};
-    vial_tap_dance_entry_t TD_NUM_TAB        = {KC_TAB, LA_NUM, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_NAV_SPACE      = {KC_TAB, LA_NAV, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_NUM_TAB        = {KC_SPC, LA_NUM, KC_NO, KC_NO, TAPPING_TERM};
     vial_tap_dance_entry_t TD_EDIT_ESC       = {KC_ESC, LA_EDIT, KC_NO, KC_NO, TAPPING_TERM};
-    vial_tap_dance_entry_t TD_SYM_SPACE      = {KC_SPC, LA_SYM, KC_NO, KC_NO, TAPPING_TERM};
-    vial_tap_dance_entry_t TD_TAB_L_SHIFT    = {KC_TAB, KC_LSFT, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_SYM_SPACE      = {KC_TAB, LA_SYM, KC_NO, KC_NO, TAPPING_TERM};
+    vial_tap_dance_entry_t TD_TAB_L_SHIFT    = {KC_SPC, KC_LSFT, KC_NO, KC_NO, TAPPING_TERM};
     vial_tap_dance_entry_t TD_ESC_ALT        = {KC_ESC, KC_LALT, KC_NO, KC_NO, TAPPING_TERM};
     vial_tap_dance_entry_t TD_CAPSLOCK_MOUSE = {KC_CAPS, LA_MOUSE, KC_NO, KC_NO, TAPPING_TERM};
 
